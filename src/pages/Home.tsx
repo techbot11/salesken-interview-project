@@ -112,7 +112,7 @@ function HomeContext(props: any) {
         {launches?.map((data: any) => {
           return (
             <Grid xs={4}>
-              <EventCard />
+              <EventCard data={data} />
             </Grid>
           );
         })}

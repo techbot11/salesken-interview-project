@@ -3,29 +3,33 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Box, Link } from "@mui/material";
+import moment from "moment";
 
-export default function EventCard() {
+export default function EventCard({ data }: any) {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         sx={{ height: 140 }}
-        image="/static/images/cards/contemplative-reptile.jpg"
+        image={data?.links?.mission_patch}
         title="green iguana"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {data?.mission_name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          Rocket Name: {data?.rocket?.rocket_name}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {moment(data?.launch_date_local).format('DD, MMM YYYY hh:ss')}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+        <Link href={data?.site_name} variant="body2">
+          Article
+        </Link>
       </CardActions>
     </Card>
   );
