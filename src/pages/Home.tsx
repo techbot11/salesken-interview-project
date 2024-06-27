@@ -3,7 +3,10 @@ import MainLayout from "../layout/MainLayout";
 import EventCard from "../components/EventCard";
 import { FetchSpaceLaunches } from "../service/SpacexService";
 import {
+  Button,
+  Checkbox,
   FormControl,
+  FormControlLabel,
   Grid,
   InputLabel,
   MenuItem,
@@ -58,7 +61,7 @@ function HomeContext(props: any) {
             onChange={handleSearch}
           />
         </Grid>
-        <Grid xs={4}>
+        <Grid xs={3}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Year</InputLabel>
             <Select
@@ -79,27 +82,36 @@ function HomeContext(props: any) {
             </Select>
           </FormControl>
         </Grid>
-        <Grid xs={4} sx={{ ml: 2 }}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">
-              Show Launch Successfully
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={filters.launch_success === true ? 0 : 1}
-              onChange={(e) => {
-                debugger;
-                setFilters((prev) => ({
-                  ...prev,
-                  launch_success: !!e.target.value,
-                }));
-              }}
-            >
-              <MenuItem value={0}>Yes</MenuItem>
-              <MenuItem value={1}>No</MenuItem>
-            </Select>
-          </FormControl>
+        <Grid xs={3} sx={{ ml: 2 }}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={filters.launch_success}
+                onChange={(e) => {
+                  debugger;
+                  setFilters((prev) => ({
+                    ...prev,
+                    launch_success: !!e.target.checked,
+                  }));
+                }}
+              />
+            }
+            label="Show Launch Success"
+          />
+        </Grid>
+        <Grid xs={3} sx={{ ml: 2 }}>
+          <Button
+            variant="contained"
+            onClick={() => {
+              setFilters({
+                launch_year: "",
+                launch_success: false,
+                mission_name: "",
+              });
+            }}
+          >
+            Clear Filter
+          </Button>
         </Grid>
       </Grid>
       <Grid

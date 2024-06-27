@@ -4,7 +4,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Box, Link } from "@mui/material";
+import { Link } from "@mui/material";
 import moment from "moment";
 
 export default function EventCard({ data }: any) {
@@ -23,11 +23,11 @@ export default function EventCard({ data }: any) {
           Rocket Name: {data?.rocket?.rocket_name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {moment(data?.launch_date_local).format('DD, MMM YYYY hh:ss')}
+          {moment(data?.launch_date_local).format("DD, MMM YYYY hh:ss")}
         </Typography>
       </CardContent>
       <CardActions>
-        <Link href={data?.site_name} variant="body2">
+        <Link href={data?.links?.article_link} variant="body2">
           Article
         </Link>
       </CardActions>

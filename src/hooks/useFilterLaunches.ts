@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { FetchSpaceLaunches } from "../service/SpacexService";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { storeSpaceLaunches } from "../store/slices/SpaceSlice";
 import { useAppSelector } from "../store";
-import { useDebounce } from "./useDebounce";
 
 export default function useFilterLaunches({ filters }: any) {
   const dispatch = useDispatch();
@@ -13,7 +12,13 @@ export default function useFilterLaunches({ filters }: any) {
     fetchLaunches(filters);
   }, [filters]);
 
-  const fetchLaunches = (filters = {}) => {
+  const fetchLaunches = (filters: any = {}) => {
+    Object.keys(filters).map((key: any) => {
+      if (!filters[key]) {
+        delete filters[key];
+      }
+      return 0;
+    });
     FetchSpaceLaunches(filters)
       .then((resp) => {
         dispatch(storeSpaceLaunches(resp.data));
