@@ -4,12 +4,17 @@ import { useDispatch } from "react-redux";
 import { storeSpaceLaunches } from "../store/slices/SpaceSlice";
 import { useAppSelector } from "../store";
 
+let isComponentLoaded = false;
+
 export default function useFilterLaunches({ filters }: any) {
   const dispatch = useDispatch();
   const launches = useAppSelector((state) => state.space.spaceLaunches);
 
   useEffect(() => {
-    fetchLaunches(filters);
+    debugger;
+    if (!!Object.keys(filters).length) {
+      fetchLaunches(filters);
+    }
   }, [filters]);
 
   const fetchLaunches = (filters: any = {}) => {
@@ -22,6 +27,7 @@ export default function useFilterLaunches({ filters }: any) {
     FetchSpaceLaunches(filters)
       .then((resp) => {
         dispatch(storeSpaceLaunches(resp.data));
+        isComponentLoaded = true;
       })
       .catch((err) => {
         console.log("error", err);
