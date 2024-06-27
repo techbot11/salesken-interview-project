@@ -23,9 +23,11 @@ export default function SignIn({ history }: any) {
     email: null,
     password: null,
   });
+
+  const [loginFailed, setLoginFailed] = React.useState(false);
+
   const formValidation = (data: { email: any; password: any }) => {
     let isValid = true;
-    debugger;
     if (!data.email) {
       storeErrors("email", "Cant be blank");
       isValid = false;
@@ -57,6 +59,7 @@ export default function SignIn({ history }: any) {
   };
 
   const handleInputChange = (e: any) => {
+    setLoginFailed(false)
     setErrors({
       ...errors,
       [e.target.name]: null,
@@ -78,6 +81,8 @@ export default function SignIn({ history }: any) {
       // store data
       if (Login(formData)) {
         history.push("/");
+      } else {
+        setLoginFailed(true);
       }
     }
   };
@@ -101,6 +106,21 @@ export default function SignIn({ history }: any) {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+          {!!loginFailed && (
+            <Typography
+              component="h1"
+              variant="h6"
+              sx={{
+                backgroundColor: "red",
+                color: "#fff",
+                width: "40%",
+                textAlign: "center",
+                my: 1
+              }}
+            >
+              Invalid Email & Password
+            </Typography>
+          )}
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -139,6 +159,7 @@ export default function SignIn({ history }: any) {
               }}
               onChange={handleInputChange}
             />
+
             <Button
               type="submit"
               fullWidth

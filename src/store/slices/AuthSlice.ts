@@ -18,6 +18,9 @@ export const AuthSlice = createSlice({
     login: (state, action: { payload: UserType }) => {
       return { ...state, user: action.payload, isLogin: true };
     },
+    logout: (state) => {
+      return { ...state, user: null, isLogin: false };
+    },
     signup: (state: any, action: { payload: UserType }) => {
       debugger;
       return {
@@ -30,6 +33,6 @@ export const AuthSlice = createSlice({
   },
 });
 
-export const { login, signup } = AuthSlice.actions;
+export const { login, signup, logout } = AuthSlice.actions;
 
 export default AuthSlice.reducer;

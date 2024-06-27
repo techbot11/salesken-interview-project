@@ -1,5 +1,5 @@
 import { store } from "../store";
-import { login, signup } from "../store/slices/AuthSlice";
+import { login, logout, signup } from "../store/slices/AuthSlice";
 
 export function Login(payload: any) {
   debugger;
@@ -17,4 +17,7 @@ export function Login(payload: any) {
 export function Signup(payload: any) {
   debugger;
   store.dispatch(signup(payload));
+}
+export function Logout() {
+  store.dispatch(logout());
 }

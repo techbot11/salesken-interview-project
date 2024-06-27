@@ -18,21 +18,28 @@ const defaultTheme = createTheme();
 
 export default function SignUp({ history }: any) {
   const [errors, setErrors] = React.useState<{
+    name: string | null;
     email: string | null;
     password: string | null;
     confirmPassword: string | null;
   }>({
+    name: null,
     email: null,
     password: null,
     confirmPassword: null,
   });
   const formValidation = (data: {
+    name: any;
     email: any;
     password: any;
     confirmPassword: any;
   }) => {
     let isValid = true;
     debugger;
+    if (!data.name) {
+      storeErrors("name", "Cant be blank");
+      isValid = false;
+    }
     if (!data.email) {
       storeErrors("email", "Cant be blank");
       isValid = false;
@@ -70,6 +77,7 @@ export default function SignUp({ history }: any) {
 
   const resetErrors = () => {
     setErrors({
+      name: null,
       email: null,
       password: null,
       confirmPassword: null,
@@ -81,6 +89,7 @@ export default function SignUp({ history }: any) {
     const data = new FormData(event.currentTarget);
     resetErrors();
     const formData = {
+      name: data.get("name"),
       email: data.get("email"),
       password: data.get("password"),
       confirmPassword: data.get("confirmPassword"),
@@ -90,6 +99,7 @@ export default function SignUp({ history }: any) {
     } else {
       // store data
       Signup({
+        name: formData.name?.toString(),
         email: formData.email?.toString(),
         password: formData.password?.toString(),
       });
@@ -129,6 +139,23 @@ export default function SignUp({ history }: any) {
             noValidate
             sx={{ mt: 1 }}
           >
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="name"
+              label="Name"
+              name="name"
+              autoComplete="name"
+              autoFocus
+              type="text"
+              error={!!errors.email}
+              helperText={errors.email}
+              InputProps={{
+                required: true,
+              }}
+              onChange={handleInputChange}
+            />
             <TextField
               margin="normal"
               required
